@@ -17,10 +17,7 @@ spec:
     spec:
       containers:
       - name: gitlab
-        image: gitlab/gitlab-ee
-        #        env:
-                #          - name: GITLAB_OMNIBUS_CONFIG
-            #            value: "external_url 'http://gitlab-service.default/';gitlab_rails['registry_enabled'] = true;gitlab_rails['registry_api_url'] = \"http://172.17.0.2:5000\""
+        image: yrzr/gitlab-ce-arm64v8
         imagePullPolicy: Always
         ports:
           - name: http-port
