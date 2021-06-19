@@ -19,21 +19,34 @@ spec:
       - name: gitlab
         image: yrzr/gitlab-ce-arm64v8
         imagePullPolicy: Always
+        env:
+          - name: GITLAB_OMNIBUS_CONFIG
+            value: "external_url 'http://gitlab.local';" # change this to your external url, in most cases the same url used by your ingress
         ports:
           - name: http-port
             containerPort: 80
         resources:
           limits:
-            cpu: 1
-            memory: 2Gi
+            cpu: 4
+            memory: 4Gi
           requests:
-            cpu: 0.5
+            cpu: 2
             memory: 2Gi
         volumeMounts:
-          - name: gitlab
+          - name: gitlab-conf
+            mountPath: /etc/gitlab
+          - name: gitlab-data
             mountPath: /var/opt/gitlab
+          - name: gitlab-logs
+            mountPath: /var/log/gitlab
 
       volumes:
-        - name: gitlab
+        - name: gitlab-conf
           persistentVolumeClaim:
-            claimName: gitlab-pvc
+            claimName: gitlab-conf-pvc
+        - name: gitlab-data
+          persistentVolumeClaim:
+            claimName: gitlab-data-pvc
+        - name: gitlab-logs
+          persistentVolumeClaim:
+            claimName: gitlab-logs-pvc
