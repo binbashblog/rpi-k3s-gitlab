@@ -38,5 +38,5 @@ spec:
 
       volumes:
         - name: gitlab
-          persistentVolumeClain:
+          persistentVolumeClaim:
             claimName: gitlab-pvc
